@@ -5,6 +5,11 @@
 // Configuration settings are in the general.h file
 //------------------------------------------------------------------------------
 
+#if defined(ASYNC_TCP_SSL_ENABLED) && SECURE_CLIENT == SECURE_CLIENT_NONE
+#undef SECURE_CLIENT
+#define SECURE_CLIENT               SECURE_CLIENT_AXTLS
+#endif
+
 #if DEBUG_TELNET_SUPPORT
 #undef TELNET_SUPPORT
 #define TELNET_SUPPORT              1
@@ -13,6 +18,11 @@
 #if not WEB_SUPPORT
 #undef DEBUG_WEB_SUPPORT
 #define DEBUG_WEB_SUPPORT           0
+#endif
+
+#if not WEB_SUPPORT
+#undef API_SUPPORT
+#define API_SUPPORT                 0           // API support requires web support
 #endif
 
 #if not WEB_SUPPORT
@@ -28,9 +38,21 @@
 #define DEBUG_SERIAL_SUPPORT        0
 #endif
 
+#if ALEXA_SUPPORT
+#undef BROKER_SUPPORT
+#define BROKER_SUPPORT              1               // If Alexa enabled enable BROKER
+#endif
+
+#if INFLUXDB_SUPPORT
+#undef BROKER_SUPPORT
+#define BROKER_SUPPORT              1               // If InfluxDB enabled enable BROKER
+#endif
+
 #if DOMOTICZ_SUPPORT
 #undef MQTT_SUPPORT
 #define MQTT_SUPPORT                1               // If Domoticz enabled enable MQTT
+#undef BROKER_SUPPORT
+#define BROKER_SUPPORT              1               // If Domoticz enabled enable BROKER
 #endif
 
 #if HOMEASSISTANT_SUPPORT
@@ -38,10 +60,16 @@
 #define MQTT_SUPPORT                1               // If Home Assistant enabled enable MQTT
 #endif
 
-#ifndef ASYNC_TCP_SSL_ENABLED
+#if SECURE_CLIENT != SECURE_CLIENT_AXTLS
 #if THINGSPEAK_USE_SSL && THINGSPEAK_USE_ASYNC
-#undef THINGSPEAK_SUPPORT                       // Thingspeak in ASYNC mode requires ASYNC_TCP_SSL_ENABLED
+#undef THINGSPEAK_SUPPORT                       
+#define THINGSPEAK_SUPPORT          0               // Thingspeak in ASYNC mode requires SECURE_CLIENT_AXTLS
 #endif
+#endif
+
+#if THINKSPEAK_SUPPORT
+#undef BROKER_SUPPORT
+#define BROKER_SUPPORT              1               // If Thingspeak enabled enable BROKER
 #endif
 
 #if SCHEDULER_SUPPORT
@@ -49,53 +77,12 @@
 #define NTP_SUPPORT                 1           // Scheduler needs NTP
 #endif
 
-// -----------------------------------------------------------------------------
-// WEB UI IMAGE
-// -----------------------------------------------------------------------------
-
-#define WEBUI_IMAGE_SMALL      0
-#define WEBUI_IMAGE_LIGHT      1
-#define WEBUI_IMAGE_SENSOR     2
-#define WEBUI_IMAGE_RFBRIDGE   4
-#define WEBUI_IMAGE_RFM69      8
-#define WEBUI_IMAGE_FULL       15
-
-#if LIGHT_PROVIDER != LIGHT_PROVIDER_NONE
-    #ifdef WEBUI_IMAGE
-        #undef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_FULL
-    #else
-        #define WEBUI_IMAGE    WEBUI_IMAGE_LIGHT
-    #endif
+#if (SECURE_CLIENT == SECURE_CLIENT_BEARSSL)
+#undef OTA_CLIENT_HTTPUPDATE_2_3_0_COMPATIBLE
+#define OTA_CLIENT_HTTPUPDATE_2_3_0_COMPATIBLE 0   // Use new HTTPUpdate API with BearSSL
 #endif
 
-#if SENSOR_SUPPORT == 1
-    #ifndef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_SENSOR
-    #else
-        #undef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_FULL
-    #endif
-#endif
-
-#if defined(ITEAD_SONOFF_RFBRIDGE)
-    #ifndef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_RFBRIDGE
-    #else
-        #undef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_FULL
-    #endif
-#endif
-
-#if RFM69_SUPPORT == 1
-    #ifndef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_RFM69
-    #else
-        #undef WEBUI_IMAGE
-        #define WEBUI_IMAGE    WEBUI_IMAGE_FULL
-    #endif
-#endif
-
-#ifndef WEBUI_IMAGE
-    #define WEBUI_IMAGE        WEBUI_IMAGE_SMALL
+#if LWIP_VERSION_MAJOR != 1
+#undef MDNS_CLIENT_SUPPORT
+#define MDNS_CLIENT_SUPPORT         0          // default resolver already handles this
 #endif

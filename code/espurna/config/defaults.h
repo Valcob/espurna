@@ -209,6 +209,138 @@
 #endif
 
 // -----------------------------------------------------------------------------
+// Encoders
+// -----------------------------------------------------------------------------
+
+#ifndef ENCODER1_PIN1
+#define ENCODER1_PIN1               GPIO_NONE
+#endif
+#ifndef ENCODER2_PIN1
+#define ENCODER2_PIN1               GPIO_NONE
+#endif
+#ifndef ENCODER3_PIN1
+#define ENCODER3_PIN1               GPIO_NONE
+#endif
+#ifndef ENCODER4_PIN1
+#define ENCODER4_PIN1               GPIO_NONE
+#endif
+#ifndef ENCODER5_PIN1
+#define ENCODER5_PIN1               GPIO_NONE
+#endif
+
+#ifndef ENCODER1_PIN2
+#define ENCODER1_PIN2               GPIO_NONE
+#endif
+#ifndef ENCODER2_PIN2
+#define ENCODER2_PIN2               GPIO_NONE
+#endif
+#ifndef ENCODER3_PIN2
+#define ENCODER3_PIN2               GPIO_NONE
+#endif
+#ifndef ENCODER4_PIN2
+#define ENCODER4_PIN2               GPIO_NONE
+#endif
+#ifndef ENCODER5_PIN2
+#define ENCODER5_PIN2               GPIO_NONE
+#endif
+
+#ifndef ENCODER1_BUTTON_PIN
+#define ENCODER1_BUTTON_PIN         GPIO_NONE
+#endif
+#ifndef ENCODER2_BUTTON_PIN
+#define ENCODER2_BUTTON_PIN         GPIO_NONE
+#endif
+#ifndef ENCODER3_BUTTON_PIN
+#define ENCODER3_BUTTON_PIN         GPIO_NONE
+#endif
+#ifndef ENCODER4_BUTTON_PIN
+#define ENCODER4_BUTTON_PIN         GPIO_NONE
+#endif
+#ifndef ENCODER5_BUTTON_PIN
+#define ENCODER5_BUTTON_PIN         GPIO_NONE
+#endif
+
+#ifndef ENCODER1_BUTTON_LOGIC
+#define ENCODER1_BUTTON_LOGIC       HIGH
+#endif
+#ifndef ENCODER2_BUTTON_LOGIC
+#define ENCODER2_BUTTON_LOGIC       HIGH
+#endif
+#ifndef ENCODER3_BUTTON_LOGIC
+#define ENCODER3_BUTTON_LOGIC       HIGH
+#endif
+#ifndef ENCODER4_BUTTON_LOGIC
+#define ENCODER4_BUTTON_LOGIC       HIGH
+#endif
+#ifndef ENCODER5_BUTTON_LOGIC
+#define ENCODER5_BUTTON_LOGIC       HIGH
+#endif
+
+#ifndef ENCODER1_BUTTON_MODE
+#define ENCODER1_BUTTON_MODE        INPUT_PULLUP
+#endif
+#ifndef ENCODER2_BUTTON_MODE
+#define ENCODER2_BUTTON_MODE        INPUT_PULLUP
+#endif
+#ifndef ENCODER3_BUTTON_MODE
+#define ENCODER3_BUTTON_MODE        INPUT_PULLUP
+#endif
+#ifndef ENCODER4_BUTTON_MODE
+#define ENCODER4_BUTTON_MODE        INPUT_PULLUP
+#endif
+#ifndef ENCODER5_BUTTON_MODE
+#define ENCODER5_BUTTON_MODE        INPUT_PULLUP
+#endif
+
+#ifndef ENCODER1_MODE
+#define ENCODER1_MODE               1
+#endif
+#ifndef ENCODER2_MODE
+#define ENCODER2_MODE               1
+#endif
+#ifndef ENCODER3_MODE
+#define ENCODER3_MODE               1
+#endif
+#ifndef ENCODER4_MODE
+#define ENCODER4_MODE               1
+#endif
+#ifndef ENCODER5_MODE
+#define ENCODER5_MODE               1
+#endif
+
+#ifndef ENCODER1_CHANNEL1
+#define ENCODER1_CHANNEL1           0
+#endif
+#ifndef ENCODER2_CHANNEL1
+#define ENCODER2_CHANNEL1           0
+#endif
+#ifndef ENCODER3_CHANNEL1
+#define ENCODER3_CHANNEL1           0
+#endif
+#ifndef ENCODER4_CHANNEL1
+#define ENCODER4_CHANNEL1           0
+#endif
+#ifndef ENCODER5_CHANNEL1
+#define ENCODER5_CHANNEL1           0
+#endif
+
+#ifndef ENCODER1_CHANNEL2
+#define ENCODER1_CHANNEL2           1
+#endif
+#ifndef ENCODER2_CHANNEL2
+#define ENCODER2_CHANNEL2           1
+#endif
+#ifndef ENCODER3_CHANNEL2
+#define ENCODER3_CHANNEL2           1
+#endif
+#ifndef ENCODER4_CHANNEL2
+#define ENCODER4_CHANNEL2           1
+#endif
+#ifndef ENCODER5_CHANNEL2
+#define ENCODER5_CHANNEL2           1
+#endif
+
+// -----------------------------------------------------------------------------
 // Relays
 // -----------------------------------------------------------------------------
 
@@ -421,12 +553,74 @@
 #endif
 
 // -----------------------------------------------------------------------------
+// Digital Inputs
+// -----------------------------------------------------------------------------
+
+#ifndef DIGITAL1_PIN
+#define DIGITAL1_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL2_PIN
+#define DIGITAL2_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL3_PIN
+#define DIGITAL3_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL4_PIN
+#define DIGITAL4_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL5_PIN
+#define DIGITAL5_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL6_PIN
+#define DIGITAL6_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL7_PIN
+#define DIGITAL7_PIN         GPIO_NONE
+#endif
+#ifndef DIGITAL8_PIN
+#define DIGITAL8_PIN         GPIO_NONE
+#endif
+
+// -----------------------------------------------------------------------------
+// Events
+// -----------------------------------------------------------------------------
+
+#ifndef EVENTS1_PIN
+#define EVENTS1_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS2_PIN
+#define EVENTS2_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS3_PIN
+#define EVENTS3_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS4_PIN
+#define EVENTS4_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS5_PIN
+#define EVENTS5_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS6_PIN
+#define EVENTS6_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS7_PIN
+#define EVENTS7_PIN         GPIO_NONE
+#endif
+#ifndef EVENTS8_PIN
+#define EVENTS8_PIN         GPIO_NONE
+#endif
+
+// -----------------------------------------------------------------------------
 // General
 // -----------------------------------------------------------------------------
 
-// Default hostname will be ESPURNA-XXXXXX, where XXXXXX is last 3 octets of chipID
+// Device name (DNS, SoftAP SSID, ALEXA etc.)
+// If empty, default will be ESPURNA-XXXXXX, where XXXXXX is last 3 octets of chipID
+// When set, must be 1..31 characters. See:
+// https://github.com/xoseperez/espurna/issues/921
+// https://github.com/xoseperez/espurna/issues/1151
 #ifndef HOSTNAME
-#define HOSTNAME ""
+#define HOSTNAME                ""
 #endif
 
 // Relay providers
@@ -437,9 +631,4 @@
 // Light provider
 #ifndef LIGHT_PROVIDER
 #define LIGHT_PROVIDER          LIGHT_PROVIDER_NONE
-#endif
-
-// App revision, populated by the build script
-#ifndef APP_REVISION
-#define APP_REVISION            ""
 #endif

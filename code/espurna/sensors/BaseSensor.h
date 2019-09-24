@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // Abstract sensor class (other sensor classes extend this class)
-// Copyright (C) 2017-2018 by Xose Pérez <xose dot perez at gmail dot com>
+// Copyright (C) 2017-2019 by Xose Pérez <xose dot perez at gmail dot com>
 // -----------------------------------------------------------------------------
 
 #if SENSOR_SUPPORT
@@ -21,7 +21,7 @@
 #define SENSOR_ERROR_CALIBRATION    8       // Calibration error or Not calibrated
 #define SENSOR_ERROR_OTHER          99      // Any other error
 
-typedef std::function<void(unsigned char, const char *)> TSensorCallback;
+typedef std::function<void(unsigned char, double)> TSensorCallback;
 
 class BaseSensor {
 
@@ -46,19 +46,22 @@ class BaseSensor {
         virtual void post() {}
 
         // Descriptive name of the sensor
-        virtual String description() {}
+        virtual String description() = 0;
 
         // Address of the sensor (it could be the GPIO or I2C address)
-        virtual String address(unsigned char index) {}
+        virtual String address(unsigned char index) = 0;
 
         // Descriptive name of the slot # index
-        virtual String slot(unsigned char index) {};
+        virtual String slot(unsigned char index) = 0;
 
         // Type for slot # index
-        virtual unsigned char type(unsigned char index) {}
+        virtual unsigned char type(unsigned char index) = 0;
+
+	    // Number of decimals for a magnitude (or -1 for default)
+	    virtual signed char decimals(unsigned char type) { return -1; }
 
         // Current value for slot # index
-        virtual double value(unsigned char index) {}
+        virtual double value(unsigned char index) = 0;
 
         // Retrieve current instance configuration
         virtual void getConfig(JsonObject& root) {};
